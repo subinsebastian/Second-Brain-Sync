@@ -1,0 +1,19 @@
+Second Brain
+
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Bun
+bun.lockb
+
+# Build output
+hello-world
+hello-world.exe
+
+# Logs
+app.log
+
+# IDE
+.vscode/
