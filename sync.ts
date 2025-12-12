@@ -13,6 +13,19 @@ function hasChanges(): boolean {
   }
 }
 
+function syncToOrigin(): void {
+  execSync('git add .', { stdio: 'inherit' });
+
+  const timestamp = new Date().toISOString();
+  execSync(`git commit -m "Automated commit at ${timestamp}"`, {
+    stdio: 'inherit',
+  });
+
+  execSync('git push', { stdio: 'inherit' });
+
+  console.log(`✓ Committed & pushed at ${timestamp}`);
+}
+
 function sync() {
   if (isSyncing) {
     console.log('Sync already in progress, skipping...');
@@ -27,16 +40,7 @@ function sync() {
   console.log('Changes detected, syncing...');
 
   try {
-    execSync('git add .', { stdio: 'inherit' });
-
-    const timestamp = new Date().toISOString();
-    execSync(`git commit -m "Automated commit at ${timestamp}"`, {
-      stdio: 'inherit',
-    });
-
-    execSync('git push', { stdio: 'inherit' });
-
-    console.log(`✓ Committed & pushed at ${timestamp}`);
+    syncToOrigin();
   } catch (err) {
     console.error('Error running Git operations:', err);
   } finally {
